@@ -1,0 +1,35 @@
+---
+title: "A Bayesian predictive approach for dealing with pseudoreplication"
+date: 2024-10-07
+author: "Lazic SE, Mellor JR, Ashby MC, et al."
+format:
+  html:
+    df-print: paged
+    toc: true
+execute: 
+  warning: false
+---
+
+## Introduction
+
+Lazic, S.E., Mellor, J.R., Ashby, M.C. *et al.* A Bayesian predictive approach for dealing with pseudoreplication. *Sci Rep* **10**, 2366 (2020)
+
+<https://doi.org/10.1038/s41598-020-59384-7>
+
+## Setup environment
+
+```{r}
+#| output: false
+library(tidyverse)
+library(magrittr)
+library(ggeffects)
+library(performance)
+```
+
+## Read and prep data
+
+```{r}
+d <- read_csv("data_and_code/Moen_data.csv", show_col_types = FALSE)
+
+d
+```
