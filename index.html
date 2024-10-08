@@ -116,10 +116,17 @@ window.Quarto = {
   <li><a href="#setup-environment" id="toc-setup-environment" class="nav-link" data-scroll-target="#setup-environment">Setup environment</a></li>
   <li><a href="#read-and-prep-data" id="toc-read-and-prep-data" class="nav-link" data-scroll-target="#read-and-prep-data">Read and prep data</a></li>
   <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory data analysis</a></li>
-  <li><a href="#correct-and-incorrect-frequentist-analysis-using-independent-sample-t-test" id="toc-correct-and-incorrect-frequentist-analysis-using-independent-sample-t-test" class="nav-link" data-scroll-target="#correct-and-incorrect-frequentist-analysis-using-independent-sample-t-test">Correct and incorrect frequentist analysis using independent sample <em>t</em>-test</a></li>
-  <li><a href="#correct-bayesian-analysis-using-multilevelhierarchical-linear-model-and-posterior-predictive-approach" id="toc-correct-bayesian-analysis-using-multilevelhierarchical-linear-model-and-posterior-predictive-approach" class="nav-link" data-scroll-target="#correct-bayesian-analysis-using-multilevelhierarchical-linear-model-and-posterior-predictive-approach">Correct Bayesian analysis using multilevel/hierarchical linear model and posterior predictive approach</a>
+  <li><a href="#frequentist-analysis" id="toc-frequentist-analysis" class="nav-link" data-scroll-target="#frequentist-analysis">Frequentist analysis</a>
   <ul class="collapse">
-  <li><a href="#specify-model" id="toc-specify-model" class="nav-link" data-scroll-target="#specify-model">Specify model</a></li>
+  <li><a href="#independent-sample-t-test-wrong" id="toc-independent-sample-t-test-wrong" class="nav-link" data-scroll-target="#independent-sample-t-test-wrong">Independent sample <em>t</em>-test (wrong)</a></li>
+  <li><a href="#independent-sample-t-test-right" id="toc-independent-sample-t-test-right" class="nav-link" data-scroll-target="#independent-sample-t-test-right">Independent sample <em>t</em>-test (right)</a></li>
+  <li><a href="#multilevelhierarchical-model" id="toc-multilevelhierarchical-model" class="nav-link" data-scroll-target="#multilevelhierarchical-model">Multilevel/hierarchical model</a></li>
+  </ul></li>
+  <li><a href="#bayesian-analysis" id="toc-bayesian-analysis" class="nav-link" data-scroll-target="#bayesian-analysis">Bayesian analysis</a>
+  <ul class="collapse">
+  <li><a href="#multilevelhierarchical-model-1" id="toc-multilevelhierarchical-model-1" class="nav-link" data-scroll-target="#multilevelhierarchical-model-1">Multilevel/hierarchical model</a></li>
+  <li><a href="#fit-model-using-rethinking" id="toc-fit-model-using-rethinking" class="nav-link" data-scroll-target="#fit-model-using-rethinking">Fit model using <code>rethinking</code></a></li>
+  <li><a href="#fit-model-using-brms" id="toc-fit-model-using-brms" class="nav-link" data-scroll-target="#fit-model-using-brms">Fit model using <code>brms</code></a></li>
   </ul></li>
   <li><a href="#print-environment" id="toc-print-environment" class="nav-link" data-scroll-target="#print-environment">Print environment</a></li>
   </ul>
@@ -175,7 +182,7 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flexplot)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -377,8 +384,10 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="correct-and-incorrect-frequentist-analysis-using-independent-sample-t-test" class="level2">
-<h2 class="anchored" data-anchor-id="correct-and-incorrect-frequentist-analysis-using-independent-sample-t-test">Correct and incorrect frequentist analysis using independent sample <em>t</em>-test</h2>
+<section id="frequentist-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="frequentist-analysis">Frequentist analysis</h2>
+<section id="independent-sample-t-test-wrong" class="level3">
+<h3 class="anchored" data-anchor-id="independent-sample-t-test-wrong">Independent sample <em>t</em>-test (wrong)</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(somasize <span class="sc">~</span> fa, <span class="at">data =</span> d) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="co"># incorrect</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -389,6 +398,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</section>
+<section id="independent-sample-t-test-right" class="level3">
+<h3 class="anchored" data-anchor-id="independent-sample-t-test-right">Independent sample <em>t</em>-test (right)</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(somasize <span class="sc">~</span> fa, <span class="at">data =</span> d.avg) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="co"># correct</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -400,10 +412,49 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="correct-bayesian-analysis-using-multilevelhierarchical-linear-model-and-posterior-predictive-approach" class="level2">
-<h2 class="anchored" data-anchor-id="correct-bayesian-analysis-using-multilevelhierarchical-linear-model-and-posterior-predictive-approach">Correct Bayesian analysis using multilevel/hierarchical linear model and posterior predictive approach</h2>
-<section id="specify-model" class="level3">
-<h3 class="anchored" data-anchor-id="specify-model">Specify model</h3>
+<section id="multilevelhierarchical-model" class="level3">
+<h3 class="anchored" data-anchor-id="multilevelhierarchical-model">Multilevel/hierarchical model</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit.lmer <span class="ot">&lt;-</span> <span class="fu">lmer</span>(somasize <span class="sc">~</span> fa <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> mouseid), <span class="at">data =</span> d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.lmer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: somasize ~ fa + (1 | mouseid)
+   Data: d
+
+REML criterion at convergence: 2926
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-1.812 -0.732 -0.117  0.577  4.208 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ mouseid  (Intercept)  22.9     4.78   
+ Residual             225.4    15.01   
+Number of obs: 354, groups:  mouseid, 9
+
+Fixed effects:
+            Estimate Std. Error    df t value    Pr(&gt;|t|)    
+(Intercept)    91.31       2.64  6.73   34.54 0.000000008 ***
+faFA            5.59       3.74  6.15    1.49        0.18    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+     (Intr)
+faFA -0.708</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="bayesian-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-analysis">Bayesian analysis</h2>
+<section id="multilevelhierarchical-model-1" class="level3">
+<h3 class="anchored" data-anchor-id="multilevelhierarchical-model-1">Multilevel/hierarchical model</h3>
 <p><span class="math display">\[
 \begin{align*}
 \text{somasize}_{ij} &amp;\sim \text{Normal}(\mu_{ij}, \sigma) \\
@@ -416,29 +467,31 @@ window.Quarto = {
 \sigma_{\gamma} &amp;\sim \text{Student}_t(3, 0, 15)
 \end{align*}
 \]</span></p>
+</section>
+<section id="fit-model-using-rethinking" class="level3">
+<h3 class="anchored" data-anchor-id="fit-model-using-rethinking">Fit model using <code>rethinking</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit.ulam <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    somasize <span class="sc">~</span> <span class="fu">normal</span>(mu, sigma),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span>  alpha <span class="sc">+</span> beta <span class="sc">*</span> fa <span class="sc">+</span> tau[mouseid],</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    tau[mouseid] <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, sigma_tau),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    alpha <span class="sc">~</span> <span class="fu">student_t</span>(<span class="dv">3</span>, <span class="dv">93</span>, <span class="dv">15</span>),</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    beta <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">20</span>),</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">student_t</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">15</span>),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    sigma_tau <span class="sc">~</span> <span class="fu">student_t</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">15</span>)),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> d, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">iter =</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit.ulam <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    somasize <span class="sc">~</span> <span class="fu">normal</span>(mu, sigma),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span>  alpha <span class="sc">+</span> beta <span class="sc">*</span> fa <span class="sc">+</span> tau[mouseid],</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    tau[mouseid] <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, sigma_tau),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    alpha <span class="sc">~</span> <span class="fu">student_t</span>(<span class="dv">3</span>, <span class="dv">93</span>, <span class="dv">15</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    beta <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">20</span>),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">student_t</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">15</span>),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    sigma_tau <span class="sc">~</span> <span class="fu">student_t</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">15</span>)),</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> d, <span class="at">chains =</span> <span class="dv">4</span>, <span class="at">cores =</span> <span class="dv">4</span>, <span class="at">iter =</span> <span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running MCMC with 4 parallel chains, with 1 thread(s) per chain...
 
 Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
@@ -449,114 +502,100 @@ Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) </code></pre>
 Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
 Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
 Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
 Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
 Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
 Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
 Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
 Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
 Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
 Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
 Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
 Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+Chain 2 finished in 0.7 seconds.
+Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 0.7 seconds.
-Chain 2 finished in 0.7 seconds.
-Chain 3 finished in 0.7 seconds.
+Chain 3 finished in 0.8 seconds.
 Chain 4 finished in 0.7 seconds.
+Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+Chain 1 finished in 0.9 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 0.7 seconds.
-Total execution time: 0.8 seconds.</code></pre>
+Mean chain execution time: 0.8 seconds.
+Total execution time: 1.0 seconds.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(fit.ulam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(fit.ulam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mean"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["5.5%"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["94.5%"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["rhat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["ess_bulk"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"87.459","2":"5.9305","3":"77.981","4":"96.634","5":"1.002","6":"1135.9","_rn_":"alpha"},{"1":"4.507","2":"3.7871","3":"-1.507","4":"10.581","5":"1.004","6":"1132.3","_rn_":"beta"},{"1":"15.053","2":"0.5677","3":"14.183","4":"16.009","5":"1.003","6":"1964.0","_rn_":"sigma"},{"1":"5.600","2":"2.3134","3":"2.740","4":"9.756","5":"1.007","6":"804.1","_rn_":"sigma_tau"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mean"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["5.5%"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["94.5%"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["rhat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["ess_bulk"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"87.358","2":"6.155","3":"77.827","4":"97.156","5":"1.007","6":"1093.7","_rn_":"alpha"},{"1":"4.527","2":"3.979","3":"-1.761","4":"10.870","5":"1.008","6":"1095.6","_rn_":"beta"},{"1":"15.060","2":"0.552","3":"14.197","4":"15.957","5":"1.002","6":"2776.9","_rn_":"sigma"},{"1":"5.694","2":"2.251","3":"2.908","4":"9.763","5":"1.004","6":"829.4","_rn_":"sigma_tau"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.ulam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit.brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(somasize <span class="sc">~</span> fa <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> mouseid), <span class="at">data =</span> d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.ulam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -566,11 +605,27 @@ Total execution time: 0.8 seconds.</code></pre>
 </div>
 </div>
 </section>
+<section id="fit-model-using-brms" class="level3">
+<h3 class="anchored" data-anchor-id="fit-model-using-brms">Fit model using <code>brms</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fit.brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(somasize <span class="sc">~</span> fa <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> mouseid), <span class="at">data =</span> d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="print-environment" class="level2">
 <h2 class="anchored" data-anchor-id="print-environment">Print environment</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -642,12 +697,13 @@ Total execution time: 0.8 seconds.</code></pre>
  lattice          0.22-6      2024-03-20 [2] CRAN (R 4.4.1)
  libcoin          1.0-10      2023-09-27 [1] CRAN (R 4.4.0)
  lifecycle        1.0.4       2023-11-07 [1] CRAN (R 4.4.0)
- lme4             1.1-35.5    2024-07-03 [1] CRAN (R 4.4.0)
+ lme4           * 1.1-35.5    2024-07-03 [1] CRAN (R 4.4.0)
+ lmerTest       * 3.1-3       2020-10-23 [1] CRAN (R 4.4.0)
  loo              2.8.0       2024-07-03 [1] CRAN (R 4.4.0)
  lubridate      * 1.9.3       2023-09-27 [1] CRAN (R 4.4.0)
  magrittr       * 2.0.3       2022-03-30 [1] CRAN (R 4.4.0)
  MASS             7.3-60.2    2024-04-26 [2] CRAN (R 4.4.1)
- Matrix           1.7-0       2024-04-26 [2] CRAN (R 4.4.1)
+ Matrix         * 1.7-0       2024-04-26 [2] CRAN (R 4.4.1)
  matrixStats      1.4.1       2024-09-08 [1] CRAN (R 4.4.1)
  mgcv             1.9-1       2023-12-21 [2] CRAN (R 4.4.1)
  minqa            1.2.8       2024-08-17 [1] CRAN (R 4.4.0)
@@ -656,8 +712,9 @@ Total execution time: 0.8 seconds.</code></pre>
  multcomp         1.4-26      2024-07-18 [1] CRAN (R 4.4.0)
  munsell          0.5.1       2024-04-01 [1] CRAN (R 4.4.0)
  mvtnorm          1.3-1       2024-09-03 [1] CRAN (R 4.4.1)
- nlme           * 3.1-164     2023-11-27 [2] CRAN (R 4.4.1)
+ nlme             3.1-164     2023-11-27 [2] CRAN (R 4.4.1)
  nloptr           2.1.1       2024-06-25 [1] CRAN (R 4.4.0)
+ numDeriv         2016.8-1.1  2019-06-06 [1] CRAN (R 4.4.0)
  party            1.3-17      2024-08-17 [1] CRAN (R 4.4.0)
  patchwork        1.3.0       2024-09-16 [1] CRAN (R 4.4.1)
  performance    * 0.12.3      2024-09-02 [1] CRAN (R 4.4.1)

@@ -29,7 +29,7 @@ library(performance)
 
 library(rethinking)
 library(brms)
-library(nlme)
+library(lmerTest)
 library(bayesplot)
 library(flexplot)
 
@@ -79,19 +79,33 @@ skimr::skim(d)
 flexplot(somasize ~ fa + mouseid, data = d)
 ```
 
-## Correct and incorrect frequentist analysis using independent sample *t*-test
+## Frequentist analysis
+
+### Independent sample *t*-test (wrong)
 
 ```{r}
 t.test(somasize ~ fa, data = d) %>% tidy() # incorrect
 ```
 
+### Independent sample *t*-test (right)
+
 ```{r}
 t.test(somasize ~ fa, data = d.avg) %>% tidy() # correct
 ```
 
-## Correct Bayesian analysis using multilevel/hierarchical linear model and posterior predictive approach
+### Multilevel/hierarchical model
 
-### Specify model
+```{r}
+fit.lmer <- lmer(somasize ~ fa + (1 | mouseid), data = d)
+```
+
+```{r}
+summary(fit.lmer)
+```
+
+## Bayesian analysis
+
+### Multilevel/hierarchical model
 
 $$
 \begin{align*}
@@ -105,6 +119,8 @@ $$
 \sigma_{\gamma} &\sim \text{Student}_t(3, 0, 15)
 \end{align*}
 $$
+
+### Fit model using `rethinking`
 
 ```{r}
 fit.ulam <- ulam(
@@ -126,6 +142,8 @@ precis(fit.ulam)
 ```{r}
 plot(fit.ulam)
 ```
+
+### Fit model using `brms`
 
 ```{r}
 fit.brm <- brm(somasize ~ fa + (1 | mouseid), data = d)
