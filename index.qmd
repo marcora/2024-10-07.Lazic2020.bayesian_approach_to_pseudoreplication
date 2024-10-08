@@ -24,15 +24,14 @@ library(tidyverse)
 library(magrittr)
 library(broom)
 library(broom.mixed)
+library(performance)
+library(flexplot)
 library(ggformula)
 library(ggeffects)
-library(performance)
 
+library(lmerTest)
 library(rethinking)
 library(brms)
-library(lmerTest)
-library(bayesplot)
-library(flexplot)
 
 options(mc.cores = parallel::detectCores())
 ```
