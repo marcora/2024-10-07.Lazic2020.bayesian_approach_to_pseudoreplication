@@ -23,6 +23,7 @@ Lazic, S.E., Mellor, J.R., Ashby, M.C. *et al.* A Bayesian predictive approach f
 library(tidyverse)
 library(magrittr)
 library(broom)
+library(broom.mixed)
 library(ggformula)
 library(ggeffects)
 library(performance)
@@ -100,7 +101,7 @@ fit.lmer <- lmer(somasize ~ fa + (1 | mouseid), data = d)
 ```
 
 ```{r}
-summary(fit.lmer)
+tidy(fit.lmer)
 ```
 
 ## Bayesian analysis
