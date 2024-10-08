@@ -103,6 +103,20 @@ fit.lmer <- lmer(somasize ~ fa + (1 | mouseid), data = d)
 tidy(fit.lmer)
 ```
 
+```{r}
+check_model(fit.lmer)
+```
+
+```{r}
+out <- predict_response(fit.lmer, "fa", margin = "empirical")
+
+out
+```
+
+```{r}
+test_predictions(out)
+```
+
 ## Bayesian analysis
 
 ### Multilevel/hierarchical model
@@ -151,6 +165,20 @@ fit.brm <- brm(somasize ~ fa + (1 | mouseid), data = d)
 
 ```{r}
 plot(fit.brm)
+```
+
+```{r}
+check_model(fit.brm)
+```
+
+```{r}
+out <- predict_response(fit.brm, "fa", margin = "empirical")
+
+out
+```
+
+```{r}
+test_predictions(out)
 ```
 
 ## Print environment
