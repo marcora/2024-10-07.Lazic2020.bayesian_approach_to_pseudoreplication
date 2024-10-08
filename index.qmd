@@ -24,12 +24,29 @@ library(tidyverse)
 library(magrittr)
 library(ggeffects)
 library(performance)
+
+library(brms)
+library(bayesplot)
+library(nlme)
+library(sciplot)
+
+options(mc.cores = parallel::detectCores())
 ```
 
 ## Read and prep data
 
 ```{r}
-d <- read_csv("data_and_code/Moen_data.csv", show_col_types = FALSE)
+d <- read_csv("Moen_data.csv", show_col_types = FALSE)
 
 d
 ```
+
+## Specify model
+
+$$
+\begin{align*}
+\text{soma size}_{ij} &\sim \text{Normal}(\mu_{ij}, \sigma) \\
+\mu_{ij} &= \alpha + \beta \times \text{group}_{i} + \gamma_{j} \\
+\gamma_{j} &\sim \text{Normal}(0, \sigma_{\gamma})
+\end{align*}
+$$
