@@ -107,7 +107,7 @@ $$
 $$
 
 ```{r}
-fit <- ulam(
+fit.ulam <- ulam(
   alist(
     somasize ~ normal(mu, sigma),
     mu <-  alpha + beta * fa + tau[mouseid],
@@ -116,23 +116,23 @@ fit <- ulam(
     beta ~ normal(0, 20),
     sigma ~ student_t(3, 0, 15),
     sigma_tau ~ student_t(3, 0, 15)),
-  data = d)
+  data = d, chains = 4, cores = 4, iter = 2000)
 ```
 
 ```{r}
-precis(fit)
+precis(fit.ulam)
 ```
 
 ```{r}
-plot(fit)
+plot(fit.ulam)
 ```
 
 ```{r}
-fit2 <- brm(somasize ~ fa + (1 | mouseid), data = d)
+fit.brm <- brm(somasize ~ fa + (1 | mouseid), data = d)
 ```
 
 ```{r}
-plot(fit2)
+plot(fit.brm)
 ```
 
 ## Print environment
