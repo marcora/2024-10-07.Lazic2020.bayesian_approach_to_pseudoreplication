@@ -22,6 +22,7 @@ Lazic, S.E., Mellor, J.R., Ashby, M.C. *et al.* A Bayesian predictive approach f
 #| output: false
 library(tidyverse)
 library(magrittr)
+library(broom)
 library(ggformula)
 library(ggeffects)
 library(performance)
@@ -81,11 +82,11 @@ flexplot(somasize ~ fa + mouseid, data = d)
 ## Correct and incorrect frequentist analysis using independent sample *t*-test
 
 ```{r}
-t.test(somasize ~ fa, data = d) # incorrect
+t.test(somasize ~ fa, data = d) %>% tidy() # incorrect
 ```
 
 ```{r}
-t.test(somasize ~ fa, data = d.avg) # correct
+t.test(somasize ~ fa, data = d.avg) %>% tidy() # correct
 ```
 
 ## Correct Bayesian analysis using multilevel/hierarchical linear model and posterior predictive approach
