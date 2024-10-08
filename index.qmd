@@ -127,6 +127,14 @@ precis(fit)
 plot(fit)
 ```
 
+```{r}
+fit2 <- brm(somasize ~ fa + (1 | mouseid), data = d)
+```
+
+```{r}
+plot(fit2)
+```
+
 ## Print environment
 
 ```{r}
